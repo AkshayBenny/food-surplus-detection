@@ -1,0 +1,4 @@
+venv
+server/.env
+server/server/.env
+.env

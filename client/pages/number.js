@@ -4,47 +4,67 @@ import { useState } from 'react'
 
 const Number = () => {
 	const router = useRouter()
-	const [number, setNumber] = useState(null)
+	const [number, setNumber] = useState(919876543210)
 	const [otpSent, setOtpSent] = useState(false)
-	const [otp, setOtp] = useState(null)
+	const [otp, setOtp] = useState('')
 
 	const submitHandler = async (e) => {
 		e.preventDefault()
-		// if (!otpSent) {
-		// 	const res = await axios.post(
-		// 		'/api/number',
-		// 		{ number },
-		// 		{
-		// 			headers: {
-		// 				'Content-Type': 'application/json',
-		// 			},
-		// 		}
-		// 	)
-		// 	if (res.data) {
-		// 		console.log(res.data)
-		// 		// router.push('/otp')
-		// 		setOtpSent(true)
-		// 	}
-		// } else {
-		// 	const res = await axios.post(
-		// 		'/api/verify-otp',
-		// 		{ otp },
-		// 		{
-		// 			headers: {
-		// 				'Content-Type': 'application/json',
-		// 			},
-		// 		}
-		// 	)
-		// 	if (res.data) {
-		// 		console.log(res.data)
-		// 		// Reroute to appropriate dashboard
-		// 		router.push('/dashboard')
-		// 	}
-		// }
+		if (!otpSent) {
+			if (!number) return alert('Please enter phone number')
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/request-otp`,
+				{
+					phone: number,
+					request_id:
+						919876543210 ||
+						'919' +
+							Math.floor(Math.random() * 10000000000)
+								.toString()
+								.padStart(10, '0'),
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+					},
+				}
+			)
+			console.log(res)
+			// if (res.data) {
+			// 	console.log(res.data)
+			// 	// router.push('/otp')
+			// 	setOtpSent(true)
+			// }
+		} else {
+			if (!otp) return alert('Please enter OTP')
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/login_verify`,
+				{
+					code: otp,
+					phone: number,
+					request_id:
+						'919' +
+						Math.floor(Math.random() * 10000000000)
+							.toString()
+							.padStart(10, '0'),
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+			if (res.data) {
+				console.log(res.data)
+				// Reroute to appropriate dashboard
+				router.push('/dashboard')
+			}
+		}
 	}
 
 	return (
-		<div className='flex items-center justify-center min-h-screen min-w-screen bg-gradient-to-br from-red-500 via-purple-500 to-pink-500 py-12'>
+		<div className='flex items-center justify-center min-h-screen min-w-screen bg-gradient-to-br from-red-500 via-purple-500 to-pink-500 py-12 px-6'>
 			<form
 				onSubmit={submitHandler}
 				className='flex flex-col items-center justify-center gap-4 w-full max-w-xl'>

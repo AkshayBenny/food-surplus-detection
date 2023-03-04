@@ -13,7 +13,7 @@ const Number = () => {
 		if (!otpSent) {
 			if (!number) return alert('Please enter phone number')
 			const res = await axios.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/request-otp`,
+				`${process.env.NEXT_PUBLIC_API_URL}/request-otp/`,
 				{
 					phone: number,
 					request_id:

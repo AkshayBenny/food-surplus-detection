@@ -22,6 +22,11 @@ export default function Home() {
 		// )
 		router.push()
 	}
+
+	// if not token redirect to /otp
+
+	if (error) window.alert(error)
+
 	const getCurrentLocation = (e) => {
 		e.preventDefault()
 		if (navigator.geolocation) {

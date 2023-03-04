@@ -112,7 +112,7 @@ class Individual(models.Model):
 
 
 class Address(models.Model):
-	user = models.ForeignKey(Individual, on_delete = models.CASCADE)
+	user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
 	name = models.CharField(max_length = 100)
 	address = models.CharField(max_length = 255)
 	point = postgis.PointField(null = True, blank = True)
@@ -122,12 +122,17 @@ class Address(models.Model):
 	
 	class Meta:
 		db_table = 'address_table'
+		
+	def clean(self):
+		if self.user.user_type != 1:
+			raise ValidationError('User must be an individual')
 
 
 class Business(models.Model):
 	user = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
 	name = models.CharField(max_length = 100)
 	about = models.TextField()
+	address = models.CharField(max_length = 255)
 	point = postgis.PointField(null = True, blank = True)
 	created = models.DateTimeField(default = timezone.now)
 	is_deleted = models.BooleanField(default = False)
@@ -140,6 +145,7 @@ class NGO(models.Model):
 	user = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
 	name = models.CharField(max_length = 100)
 	about = models.TextField()
+	address = models.CharField(max_length = 255)
 	point = postgis.PointField(null = True, blank = True)
 	created = models.DateTimeField(default = timezone.now)
 	is_deleted = models.BooleanField(default = False)
@@ -156,7 +162,7 @@ class SurplusRequest(models.Model):
 			(2, 'Other'),
 	)
 	
-	created_user = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
+	created_user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
 	address = models.ForeignKey(Address, on_delete = models.CASCADE, null = True, blank = True)
 	food_type = models.IntegerField(choices = FOOD_TYPE_CHOICES)
 	feedable_count = models.IntegerField()
@@ -185,10 +191,10 @@ class SurplusChild(models.Model):
 			(6, "Cancelled"),
 	)
 	
-	surplus_request = models.ForeignKey(SurplusRequest, on_delete = models.CASCADE)
-	pickup_user = models.OneToOneField(CustomUser, on_delete = models.CASCADE, null = True, blank = True)
+	surplus_request = models.OneToOneField(SurplusRequest, on_delete = models.CASCADE)
+	pickup_user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True, blank = True)
 	pickup_status = models.IntegerField(choices = PICKUP_STATUS_CHOICES)
-	leftover_count = models.IntegerField()
+	leftover_count = models.IntegerField(null = True, blank = True)
 	created = models.DateTimeField(default = timezone.now)
 	is_deleted = models.BooleanField(default = False)
 	

@@ -79,8 +79,6 @@ class TempUser(models.Model):
 	def __str__(self):
 		if self.name:
 			return self.name
-		else:
-			return self.username
 	
 	class Meta:
 		db_table = 'temp_user_table'
@@ -96,7 +94,7 @@ class Otp(models.Model):
 	is_deleted = models.BooleanField(default = False)
 	
 	def __str__(self):
-		return self.requested_by if self.requested_by else self.temp_user
+		return f"code{self.id}"
 	
 	class Meta:
 		db_table = 'otp_table'

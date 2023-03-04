@@ -1,9 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from api.models import (
-	CustomUser, TempUser, Otp, Individual, Address, Business, NGO, SurplusRequest, SurplusChild,
-)
+from api.models import (Address, Business, CustomUser, Individual, NGO, Otp, SurplusChild, SurplusRequest, TempUser)
 
 admin.site.register(CustomUser)
 admin.site.register(TempUser)

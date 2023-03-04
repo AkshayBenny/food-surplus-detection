@@ -68,10 +68,9 @@ class TempUser(models.Model):
 			(3, 'NGO'),
 	)
 	
-	username = models.CharField(max_length = 150, unique = True)
+	email = models.EmailField(unique = True)
 	name = models.CharField(max_length = 100)
 	phone = models.CharField(max_length = 50)
-	email = models.EmailField(unique = True)
 	user_type = models.IntegerField(default = 1, choices = TYPE_CHOICES)
 	verified = models.BooleanField(default = False)
 	created = models.DateTimeField(default = timezone.now)

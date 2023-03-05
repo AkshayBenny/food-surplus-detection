@@ -23,7 +23,7 @@ export default function Signup() {
 				.toString()
 				.padStart(10, '0')
 	)
-	const [otp, setOtp] = useState(5555)
+	const [otp, setOtp] = useState('')
 	const [otpSent, setOtpSent] = useState(false)
 
 	const submitHandler = async (e) => {
@@ -39,22 +39,23 @@ export default function Signup() {
 					user_type: selectedOption,
 				}
 			)
+			// router.push('/provider')
 			if (res.data.status === 'Success') {
 				setOtpSent(true)
 			}
 			// console.log(res)
-			if (res.data.route === 'signup') {
-				localStorage.setItem('user_number', phone)
-				// router.push('/number')
-				// if (type === 1 || type === 2) {
-				// 	router.push('/provider')
-				// }
-				// if (type === 3) {
-				// 	router.push('/ngo')
-				// }
-			} else {
-				// console.log('Not redirected', res.data)
-			}
+			// // if (res.data.route === 'signup') {
+			// // 	localStorage.setItem('user_number', phone)
+			// // 	// router.push('/number')
+			// // 	if (type === 1 || type === 2) {
+			// // 		router.push('/provider')
+			// // 	}
+			// // 	if (type === 3) {
+			// // 		router.push('/ngo')
+			// // 	}
+			// } else {
+			// 	// console.log('Not redirected', res.data)
+			// }
 		} else {
 			if (!otp)
 				return setToast({
@@ -83,6 +84,7 @@ export default function Signup() {
 					type: 'error',
 				})
 			}
+
 			if (res.data && res.data.status === 'success') {
 				const access_token = res.data.access
 				const refresh_token = res.data.refresh
@@ -90,7 +92,7 @@ export default function Signup() {
 				localStorage.setItem('access_token', access_token)
 				localStorage.setItem('refresh_token', refresh_token)
 				localStorage.setItem('user_data', JSON.stringify(user_data))
-
+				console.log('>>>>>>>>>>>>>>>>>>>', selectedOption)
 				if (selectedOption === 1 || selectedOption === 2) {
 					router.push('/provider')
 				}

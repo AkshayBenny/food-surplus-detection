@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiFillDelete } from 'react-icons/ai'
+import Link from 'next/link'
+import { CgProfile } from 'react-icons/cg'
 
 const Provider = () => {
 	const [providerData, setProviderData] = useState(null)
@@ -63,6 +65,14 @@ const Provider = () => {
 
 	return (
 		<div className='p-12 relative min-h-screen w-full'>
+			<nav className='bg-purple-500 text-white flex items-center justify-between p-3'>
+				<h1 className='text-center font-semibold text-2xl'>
+					Restaurant Dashboard
+				</h1>
+				<Link href='/profile'>
+					<CgProfile size='24px' />
+				</Link>
+			</nav>
 			{showModal && (
 				<div
 					className='w-full h-full bg-black opacity-20 z-30 absolute top-0 left-0'

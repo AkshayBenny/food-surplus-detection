@@ -16,6 +16,7 @@ const Ngo = () => {
 	// console.log(providerData)
 	const [showModal, setShowModal] = useState(false)
 	const [servings, setServings] = useState(0)
+	const [selectedOption, setSelectedOption] = useState('')
 	// fetch dashboard data
 	useEffect(() => {
 		const access_token = localStorage.getItem('access_token')
@@ -35,7 +36,7 @@ const Ngo = () => {
 
 		fetchDashBoard()
 	}, [])
-	const [selectedOption, setSelectedOption] = useState('')
+	console.log('>>>>>>>>>>>', providerData)
 
 	const handleOptionChange = (event) => {
 		setSelectedOption(event.target.value)

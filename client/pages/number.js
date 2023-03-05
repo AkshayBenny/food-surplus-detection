@@ -7,7 +7,7 @@ const Number = () => {
 	const router = useRouter()
 	const [number, setNumber] = useState('')
 	const [otpSent, setOtpSent] = useState(false)
-	const [otp, setOtp] = useState(5555)
+	const [otp, setOtp] = useState('')
 	const [reqid, setReqid] = useState(
 		'919' +
 			Math.floor(Math.random() * 10000000000)

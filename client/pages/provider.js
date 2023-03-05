@@ -8,6 +8,7 @@ const Provider = () => {
 	const [providerData, setProviderData] = useState(null)
 	const [showModal, setShowModal] = useState(false)
 	const [servings, setServings] = useState(0)
+	const [selectedOption, setSelectedOption] = useState('')
 	useEffect(() => {
 		const getProviderData = async () => {
 			const res = await axios.get(
@@ -20,7 +21,6 @@ const Provider = () => {
 		// getProviderData()
 	}, [providerData])
 
-	const [selectedOption, setSelectedOption] = useState('')
 
 	const handleOptionChange = (event) => {
 		setSelectedOption(event.target.value)

@@ -37,32 +37,40 @@ def request_otp(request):
 				}
 				return Response(context)
 		except CustomUser.DoesNotExist:
-			if Otp.objects.filter(temp_user__phone = phone, request_id = request_id, verified = False).exists():
+			if email and name and user_type:
+				if Otp.objects.filter(temp_user__phone = phone, request_id = request_id, verified = False).exists():
+					context = {
+							'status': 'Success',
+							'message': 'Signup OTP Send!',
+							'route': 'signup'
+					}
+					return Response(context)
+				else:
+					tempuser = TempUser.objects.create(
+							email = email,
+							name = name,
+							phone = phone,
+							user_type = user_type,
+					)
+					otp = Otp()
+					otp.temp_user = tempuser
+					otp.request_id = request_id
+					code = 5555
+					otp.code = code
+					otp.save()
+					context = {
+							'status': 'success',
+							'message': 'Signup OTP Send!',
+							'route': 'signup'
+					}
+				return Response(context)
+			else:
 				context = {
-						'status': 'Success',
-						'message': 'Signup OTP Send!',
+						'status': 'error',
+						'message': 'make sure you send email,name,user_type as request to signup',
 						'route': 'signup'
 				}
 				return Response(context)
-			else:
-				tempuser = TempUser.objects.create(
-						email = email,
-						name = name,
-						phone = phone,
-						user_type = user_type,
-				)
-				otp = Otp()
-				otp.temp_user = tempuser
-				otp.request_id = request_id
-				code = 5555
-				otp.code = code
-				otp.save()
-				context = {
-						'status': 'success',
-						'message': 'Signup OTP Send!',
-						'route': 'signup'
-				}
-			return Response(context)
 	else:
 		response = {
 				"status": "error",

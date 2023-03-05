@@ -85,7 +85,7 @@ class TempUser(models.Model):
 
 
 class Otp(models.Model):
-	code = models.IntegerField()
+	code = models.CharField(max_length = 4)
 	request_id = models.CharField(max_length = 20)
 	requested_by = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True, blank = True)
 	temp_user = models.ForeignKey(TempUser, on_delete = models.CASCADE, null = True, blank = True)

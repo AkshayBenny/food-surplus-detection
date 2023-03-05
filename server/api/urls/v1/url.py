@@ -16,5 +16,6 @@ urlpatterns = [
 		path('get_address/', home.get_address, name = 'api-v1-get_address'),
 		path('add_address/', home.add_address, name = 'api-v1-add_address'),
 		path('surplus_request/', home.surplus_request, name = 'api-v1-surplus_request'),
+		path('surplus_status_change/', home.surplus_status_change, name = 'api-v1-surplus_status_change'),
 
 ]

@@ -168,3 +168,35 @@ def surplus_request(request):
 				"errors": create_surplus_request.errors
 		}
 		return Response(response)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def surplus_status_change(request):
+	surplus_request_id = request.data.get('surplus_request_id', False)
+	pickup_user_id = request.data.get('pickup_user_id', False)
+	if surplus_request_id and pickup_user_id:
+		if SurplusChild.objects.filter(
+				surplus_request_id = surplus_request_id,
+				pickup_status__in = [0, 1, 2, 3, 5, 6]
+		).exists():
+			response = {
+					"status": "error",
+					"message": "already assigned"
+			}
+			return Response(response)
+		else:
+			SurplusChild.objects.create(
+					surplus_request_id = surplus_request_id, pickup_user_id = pickup_user_id, pickup_status = 0
+			)
+			response = {
+					"status": "success",
+					"message": "surplus request is accepted"
+			}
+			return Response(response)
+	else:
+		response = {
+				'status': "error",
+				"message": "make sure you sent surplus_request_id and pickup_user_id"
+		}
+		return Response(response)

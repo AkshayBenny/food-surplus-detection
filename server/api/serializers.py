@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import Address, CustomUser, NGO, SurplusChild, SurplusRequest
+from api.models import Address, Business, CustomUser, NGO, SurplusChild, SurplusRequest
 
 
 class HomeSurplusRequestsSerializer(serializers.ModelSerializer):
@@ -62,20 +62,20 @@ class HomeSurplusRequestsSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = SurplusRequest
-		fields = ['created_user', 'address', 'food_type', 'feedable_count', 'prepared_at', 'pickup_user',
+		fields = ['id', 'created_user', 'address', 'food_type', 'feedable_count', 'prepared_at', 'pickup_user',
 		          'pickup_org', 'pickup_status', 'leftover_count', 'is_active', 'created']
 
 
 class CreatedUserNgoSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomUser
-		fields = ['email', 'name', 'phone', 'user_type', ]
+		fields = ['id', 'email', 'name', 'phone', 'user_type', ]
 
 
 class AddressIndividualSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Address
-		fields = ['name', 'address', 'point', 'about', ]
+		fields = ['id', 'name', 'address', 'point', 'about', ]
 
 
 class HomeNgoSurplusSerializer(serializers.ModelSerializer):
@@ -84,7 +84,8 @@ class HomeNgoSurplusSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		models = SurplusRequest
-		fields = ["created_user", "address", "food_type", "feedable_count", "prepared_at", "is_active", "created", ]
+		fields = ['id', "created_user", "address", "food_type", "feedable_count", "prepared_at", "is_active",
+		          "created", ]
 
 
 class NGOSerializer(serializers.ModelSerializer):
@@ -99,11 +100,60 @@ class NGOSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = NGO
-		fields = ["name", "about", "latitude", "longitude", "created"]
+		fields = ['id', "name", "about", "latitude", "longitude", "created"]
 
 
 class HomeSurplusRequestsNgoSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = SurplusRequest
-		fields = ['created_user', 'address', 'food_type', 'feedable_count', 'prepared_at', 'is_active', 'created']
+		fields = ['id', 'created_user', 'address', 'food_type', 'feedable_count', 'prepared_at', 'is_active',
+		          'created']
+
+
+class CreateSurplusRequestSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SurplusRequest
+		fields = ['created_user', 'address', 'food_type', 'feedable_count', 'prepared_at', ]
+
+
+class FetchAddressSerializer(serializers.ModelSerializer):
+	latitude = serializers.SerializerMethodField()
+	longitude = serializers.SerializerMethodField()
+	
+	def get_latitude(self, instance):
+		return instance.point.y
+	
+	def get_longitude(self, instance):
+		return instance.point.x
+	
+	class Meta:
+		model = Address
+		fields = ['id', 'name', 'address', 'about', 'latitude', 'longitude', ]
+
+
+class CreatAddressSerializer(serializers.ModelSerializer):
+	latitude = serializers.SerializerMethodField()
+	longitude = serializers.SerializerMethodField()
+	
+	def get_latitude(self, instance):
+		return instance.point.y
+	
+	def get_longitude(self, instance):
+		return instance.point.x
+	
+	class Meta:
+		model = Address
+		fields = ['user', 'name', 'address', 'about', 'latitude', 'longitude']
+
+
+class FetchBusinessSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Business
+		fields = '__all__'
+
+
+class FetchNGOSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = NGO
+		fields = '__all__'

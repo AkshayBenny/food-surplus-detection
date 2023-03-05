@@ -10,6 +10,7 @@ urlpatterns = [
 		path('login_verify/', authentication.login_verify, name = 'api-v1-login_verify'),
 		path('signup_verify/', authentication.signup_verify, name = 'api-v1-signup_verify'),
 		path('token_refresh/', jwt_views.TokenRefreshView.as_view(), name = 'api-v1-token_refresh'),
+		path('create_profile/', authentication.create_profile, name = 'api-v1-create_profile'),
 		
 		# ---------------------------------------------- Home -----------------------------------------------
 		path('', home.home_view, name = 'api-v1-home'),

@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.contrib.gis.geos import fromstr
 from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -8,8 +9,7 @@ from rest_framework.response import Response
 from api.models import (Address, Business, CustomUser, NGO, SurplusChild, SurplusRequest)
 from api.serializers import (
 	CreatAddressSerializer, CreateSurplusRequestSerializer, FetchAddressSerializer, FetchBusinessSerializer,
-	FetchNGOSerializer, HomeSurplusRequestsNgoSerializer,
-	HomeSurplusRequestsSerializer, NGOSerializer,
+	FetchNGOSerializer, HomeSurplusRequestsNgoSerializer, HomeSurplusRequestsSerializer, NGOSerializer,
 )
 
 
@@ -43,9 +43,12 @@ def home_view(request):
 	if request.user.user_type == 3:
 		ngo = NGO.objects.get(user = request.user, is_deleted = False)
 		ngo_details = NGOSerializer(ngo).data
+		distant_from_point = 30
+		x = 'POINT(' + str(ngo.point.x) + ' ' + str(ngo.point.y) + ')'
+		pnt = fromstr(x, srid = 4326)
 		sr = SurplusRequest.objects.filter(
 				prepared_at__gt = timezone.now() - timedelta(hours = 12),
-				is_deleted = False, is_active = True,
+				is_deleted = False, is_active = True
 		)
 		src_list = []
 		for s in sr:

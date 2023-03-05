@@ -157,3 +157,15 @@ class FetchNGOSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NGO
 		fields = '__all__'
+
+
+class NGOProfileCreateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = NGO
+		fields = ["user", "name", "about", "address"]
+
+
+class BusinessProfileCreateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Business
+		fields = ["user", "name", "about", "address"]

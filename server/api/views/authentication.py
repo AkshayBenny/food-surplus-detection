@@ -1,11 +1,16 @@
 import datetime
 from datetime import datetime, timedelta
 
-from rest_framework.decorators import api_view
+from django.contrib.gis.geos import fromstr
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from api.models import (CustomUser, Otp, TempUser)
+from api.serializers import (
+	BusinessProfileCreateSerializer, NGOProfileCreateSerializer,
+)
 
 
 @api_view(['POST'])
@@ -15,6 +20,11 @@ def request_otp(request):
 	email = request.data.get('email', False)
 	name = request.data.get('name', False)
 	user_type = request.data.get('user_type', False)
+	print(phone)
+	print(request_id)
+	print(email)
+	print(name)
+	print(user_type)
 	if phone and request_id:
 		try:
 			user = CustomUser.objects.get(phone = phone)
@@ -84,6 +94,9 @@ def login_verify(request):
 	phone = request.data.get('phone', False)
 	code = request.data.get('code', False)
 	request_id = request.data.get('request_id', False)
+	print(phone)
+	print(code)
+	print(request_id)
 	if phone and code and request_id:
 		try:
 			if CustomUser.objects.filter(phone = phone).exists():
@@ -158,6 +171,9 @@ def signup_verify(request):
 	phone = request.data.get('phone')
 	code = request.data.get('code')
 	request_id = request.data.get('request_id')
+	print(phone)
+	print(code)
+	print(request_id)
 	if phone and code and request_id:
 		try:
 			date_from = datetime.now() - timedelta(days = 1)
@@ -240,3 +256,50 @@ def signup_verify(request):
 				"message": "incomplete request"
 		}
 		return Response(response)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_profile(request):
+	latitude = request.data.get('latitude')
+	longitude = request.data.get('longitude')
+	if request.user.user_type == 2:
+		print(request.user)
+		business_serializer = BusinessProfileCreateSerializer(data = request.data)
+		if business_serializer.is_valid():
+			ser = business_serializer.save()
+			x = 'POINT(' + str(latitude) + ' ' + str(longitude) + ')'
+			ser.point = fromstr(x, srid = 4326)
+			ser.save()
+			response = {
+					"status": "success",
+					"message": "Business Profile Created",
+			}
+			return Response(response)
+		else:
+			response = {
+					"status": "error",
+					"message": "error occurred while creating Business profile",
+					"errors": business_serializer.errors
+			}
+			return Response(response)
+	if request.user.user_type == 3:
+		print(request.user)
+		ngo_serializer = NGOProfileCreateSerializer(data = request.data)
+		if ngo_serializer.is_valid():
+			ser = ngo_serializer.save()
+			x = 'POINT(' + str(latitude) + ' ' + str(longitude) + ')'
+			ser.point = fromstr(x, srid = 4326)
+			ser.save()
+			response = {
+					"status": "success",
+					"message": "NGO Profile Created",
+			}
+			return Response(response)
+		else:
+			response = {
+					"status": "error",
+					"message": "error occurred while creating ngo profile",
+					"errors": ngo_serializer.errors
+			}
+			return Response(response)

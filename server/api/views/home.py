@@ -62,20 +62,20 @@ def home_view(request):
 			if sr_child:
 				src = sr_child.first()
 				if src.pickup_status == 0:
-					src_dict['pickup_status'] = "Accepted"
+					src_dict['surplus_request']['pickup_status'] = "Accepted"
 				if src.pickup_status == 1:
-					src_dict['pickup_status'] = "On the Way"
+					src_dict['surplus_request']['pickup_status'] = "On the Way"
 				if src.pickup_status == 2:
-					src_dict['pickup_status'] = "Picked Up"
+					src_dict['surplus_request']['pickup_status'] = "Picked Up"
 				if src.pickup_status == 3:
-					src_dict['pickup_status'] = "Delivering"
+					src_dict['surplus_request']['pickup_status'] = "Delivering"
 				if src.pickup_status == 4:
-					src_dict['pickup_status'] = "Leftover"
+					src_dict['surplus_request']['pickup_status'] = "Leftover"
 				if src.pickup_status == 5:
-					src_dict['pickup_status'] = "Delivered"
+					src_dict['surplus_request']['pickup_status'] = "Delivered"
 				if src.pickup_status == 6:
-					src_dict['pickup_status'] = "Cancelled"
-				src_dict['leftover_count'] = src.leftover_count
+					src_dict['surplus_request']['pickup_status'] = "Cancelled"
+				src_dict['surplus_request']['leftover_count'] = src.leftover_count
 			src_list.append(src_dict)
 		response = {
 				"message": "success",

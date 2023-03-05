@@ -31,8 +31,7 @@ We have built a simple version of the platform in less than 36 hours, but there 
 
 ---
 
-## Technologies
-
+# Technologies
 * Next.js
 * Django REST framework
 * Postgres

@@ -38,3 +38,50 @@ We have built a simple version of the platform in less than 36 hours, but there 
 * TailwindCSS
 
 
+## Min Requirements
+
+- Node v14.6
+- Python v3.10
+
+## Frontend Setup
+
+1. change directory to client
+   ```bash
+	cd client
+   ```
+2. npm install
+   ```bash
+   npm install 
+   ```
+   ```bash
+	npm run dev
+   ```
+
+## Backend Setup
+
+1. Install GDAL and Postgis([refer](https://docs.djangoproject.com/en/4.1/ref/contrib/gis/install/))
+2. change directory to server
+   ```bash
+   cd server
+   ```
+3. create virtual environment
+   ```bash
+   python3 -m venv venv
+	```
+4. activate virtual environment
+   ```bash
+   source venv/bin/activate
+   ```
+5. install requirments
+   ```bash
+   pip install -r requirments.txt
+   ```
+6. create postgres db and setup .env inside prject directory
+7. migrate models
+   ```bash
+	python3 manage.py migrate
+	```
+8. runserver
+   ```bash
+   python3 manage.py runserver
+   ```

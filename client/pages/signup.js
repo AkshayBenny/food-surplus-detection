@@ -84,6 +84,13 @@ export default function Signup() {
 				})
 			}
 			if (res.data && res.data.status === 'success') {
+				const access_token = res.data.access
+				const refresh_token = res.data.refresh
+				const user_data = res.data.user
+				localStorage.setItem('access_token', access_token)
+				localStorage.setItem('refresh_token', refresh_token)
+				localStorage.setItem('user_data', JSON.stringify(user_data))
+
 				if (selectedOption === 1 || selectedOption === 2) {
 					router.push('/provider')
 				}
@@ -117,6 +124,7 @@ export default function Signup() {
 				res.data.user_data === 'Individual'
 			) {
 				console.log(res.data)
+
 				router.push('/provider')
 			}
 		}

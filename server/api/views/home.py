@@ -175,7 +175,25 @@ def surplus_request(request):
 def surplus_status_change(request):
 	surplus_request_id = request.data.get('surplus_request_id', False)
 	pickup_user_id = request.data.get('pickup_user_id', False)
-	if surplus_request_id and pickup_user_id:
+	status = request.data.get('status', False)
+	if surplus_request_id and pickup_user_id and status:
+		scs = SurplusChild.objects.filter(surplus_request_id = surplus_request_id, pickup_user_id = pickup_user_id)
+		if scs.exists():
+			sc = scs.first()
+			sc.pickup_status = status
+			sc.save()
+			response = {
+					"status": "success",
+					"message": "Surplus status updated"
+			}
+			return Response(response)
+		else:
+			response = {
+					"status": "error",
+					"message": "Error in fetching status"
+			}
+			return Response(response)
+	elif surplus_request_id and pickup_user_id:
 		if SurplusChild.objects.filter(
 				surplus_request_id = surplus_request_id,
 				pickup_status__in = [0, 1, 2, 3, 5, 6]
@@ -197,6 +215,7 @@ def surplus_status_change(request):
 	else:
 		response = {
 				'status': "error",
-				"message": "make sure you sent surplus_request_id and pickup_user_id"
+				"message": "make sure you sent surplus_request_id and pickup_user_id, make sure to send status for "
+				           "changing current status"
 		}
 		return Response(response)

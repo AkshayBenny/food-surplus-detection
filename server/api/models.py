@@ -122,7 +122,7 @@ class Address(models.Model):
 	
 	class Meta:
 		db_table = 'address_table'
-		
+	
 	def clean(self):
 		if self.user.user_type != 1:
 			raise ValidationError('User must be an individual')

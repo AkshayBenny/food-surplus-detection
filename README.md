@@ -25,9 +25,17 @@ We began with a simple idea, which we expanded upon during the hackathon. We dev
 There is a possibility that people may donate old or spoiled food if anyone can submit a request. To address this concern, we are implementing policies for joining NGOs, instructing them not to collect any frozen or potentially spoiled food. Additionally, we have implemented a simple system where each new food entry made by a restaurant or individual expires after 12 hours from the time it was cooked. Donating spoiled food can have serious consequences, and may result in immediate police action against the individual or business that made the request.
 
 
-
 ## Future Plans
 
 We have built a simple version of the platform in less than 36 hours, but there are many more options to consider. For example, we plan to integrate a WhatsApp API feature, which will enable people to receive notifications on their smartphones. This will allow users to receive notifications quickly, as there is a high likelihood that they will check their WhatsApp messages more frequently than their emails or SMS messages. We also plan to include a payment gateway to accept donations, which will go directly to other charities. In the future, we aim to collaborate with various NGOs such as The Robinhood Army, and make the platform more feasible for such organizations, thereby enabling them to make a wider impact.
+
+---
+
+## Technologies
+
+* Next.js
+* Django REST framework
+* Postgres
+* TailwindCSS
 
 

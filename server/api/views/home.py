@@ -76,9 +76,7 @@ def home_view(request):
 				if src.pickup_status == 6:
 					src_dict['pickup_status'] = "Cancelled"
 				src_dict['leftover_count'] = src.leftover_count
-				src_list.append(src_dict)
-			else:
-				continue
+			src_list.append(src_dict)
 		response = {
 				"message": "success",
 				"user_data": user_data,

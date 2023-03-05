@@ -1,27 +1,33 @@
 # Food for All - Surplus Food Management
 
-Food for All is a web-based platform that connects individuals and businesses with registered NGOs within a 30km radius to donate surplus food. The platform uses Next.js for the front-end and Django Rest Framework for the back-end, enabling users to register and login, and notify NGOs about available surplus food via SMS, email, and eventually WhatsApp API. Food for All aims to reduce food waste and address hunger by facilitating the collection and distribution of surplus food to those in need.
+"Food for All" is a web application that aims to connect individuals and businesses with registered NGOs for the purpose of donating surplus food to those in need. The platform is designed using Next.js for the front-end and Django Rest Framework for the back-end, providing users with the ability to register and login, and subsequently add a new entry to the dashboard. Once an entry is added, nearby NGOs (within a 30-kilometer radius of the food provider) are notified via SMS, email, and eventually WhatsApp, using the WhatsApp API. The primary goal of "Food for All" is to combat food waste and address hunger by facilitating the collection and distribution of surplus food to those who require it.
+
 
 ---
 
 ## Problem
 
-Did you know that 828 million people go to bed hungry? [source](https://www.actionagainsthunger.org/the-hunger-crisis/world-hunger-facts/).We waste a lot of food for many occasions, even if it is a small wedding party in homes or in big restaurants, sometimes surplus food is made and dumped. And this many people go to bed with an empty stomach. We are solving this issue by creating a web portal.
+Were you aware that 828 million people go to bed hungry ([source](https://www.actionagainsthunger.org/the-hunger-crisis/world-hunger-facts/))?. This is a significant number, and yet we often waste a considerable amount of food in many situations, such as small weddings at home or large restaurants, resulting in surplus food being discarded. Unfortunately, this means that many people go to bed without a proper meal. To address this issue, we have created a web portal that connects NGOs with locations where there is an excess availability of food. Our aim is to reduce food waste and provide surplus food to those who need it the most.
 
 
 ## Why Food for All?
 
-When this idea popped into our mind we searched all possible projects and how they built them, and found out, everything was a kind of Simple CRUD web-app or a mobile app. People won't install a separate app for this so we built a web app instead. Another thing was they built it only for Businesses or Restaurants, but still, there can be occasions where individuals need to connect with an NGO to donate. And Even if you order, I saw in some projects, they need a middle man admin to approve the restaurant or individual's request to a particular NGO, which is a tedious work, if NGO canceled the admin need to reassign to some other NGO. So we removed the middle man and the request is sent to every NGO in 30kms around the request location.
+When we initially came up with this idea, we researched various similar projects and how they were built. We noticed that most of them were either web or mobile apps that required a significant amount of manual labor, which could have been avoided. Furthermore, people may not want to install a separate app specifically for this purpose, so we decided to create a web application instead. Additionally, many of these projects were designed solely for businesses or restaurants, but there may be instances where individuals also want to connect with an NGO to donate. We also observed that some projects required a middleman admin to approve restaurant or individual requests before forwarding them to a particular NGO. This process can be tedious, especially if the NGO cancels the request, which would require the admin to reassign it to another NGO. To eliminate this intermediary, we developed a system where requests are sent to all NGOs within a 30-kilometer radius of the requested location, thereby simplifying the process.
+
 
 ## Progress So Far
 
-We started with a simple idea before the hackathon, while building we expanded the idea. We made authentication and a simple dashboard where NGOs can see the requests and accept them and update the status of delivering the food. Businesses and individuals can request a pickup of surplus product and they can see every detail about it, and their previous requests. We couldn't implement the OTP system now because we faced some issues in integrating them, so in theory, by just plugging in the OTP system will complete the OTP verification part. As of now, we use a hard-coded OTP and a database to do the validation.
+We began with a simple idea, which we expanded upon during the hackathon. We developed an authentication system and a dashboard for NGOs, allowing them to view and accept food donation requests, as well as update the status of the delivery process. We also created a dashboard for restaurants, where they can monitor both current and previously donated food. Businesses and individuals are able to request a pickup of surplus products and track the progress of their requests. Although we faced some challenges while integrating the OTP system, we plan to complete the OTP verification process by simply plugging it in. Currently, we use a hard-coded OTP and a database for validation.
+
 
 ## Health Concerns
 
-If anyone can get in and submit a request, there might be a chance for people to give old food, we are making policies for joining NGOs to not pick up any frozen food or the food that they think is spoiled. Also, donating bad food can cause immediate police action against the individual or the business who put the request.
+There is a possibility that people may donate old or spoiled food if anyone can submit a request. To address this concern, we are implementing policies for joining NGOs, instructing them not to collect any frozen or potentially spoiled food. Additionally, we have implemented a simple system where each new food entry made by a restaurant or individual expires after 12 hours from the time it was cooked. Donating spoiled food can have serious consequences, and may result in immediate police action against the individual or business that made the request.
+
+
 
 ## Future Plans
 
-It is a very simple version we built in less than 36 hours, and there are plenty of options to do, like integrating a WhatsApp API feature, so people get notification on their smartphones, which helps them to get the notification fast because there is a high chance for a person to look in WhatsApp messages than any emails or SMS. We plan to approach various NGOs like The Robinhood Army and making this platform more feasible for such organizations to help them in making the impact widely.
+We have built a simple version of the platform in less than 36 hours, but there are many more options to consider. For example, we plan to integrate a WhatsApp API feature, which will enable people to receive notifications on their smartphones. This will allow users to receive notifications quickly, as there is a high likelihood that they will check their WhatsApp messages more frequently than their emails or SMS messages. We also plan to include a payment gateway to accept donations, which will go directly to other charities. In the future, we aim to collaborate with various NGOs such as The Robinhood Army, and make the platform more feasible for such organizations, thereby enabling them to make a wider impact.
+
 

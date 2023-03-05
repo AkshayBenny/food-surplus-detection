@@ -19,7 +19,7 @@ const Provider = () => {
 	useEffect(() => {
 		const access_token = localStorage.getItem('access_token')
 		const refresh_token = localStorage.getItem('refresh_token')
-		console.log(access_token, refresh_token)
+		// console.log(access_token, refresh_token)
 		if (!access_token || !refresh_token) {
 			router.push('/number')
 		}
@@ -34,7 +34,7 @@ const Provider = () => {
 
 		fetchDashBoard()
 	}, [])
-	console.log(providerData)
+	// console.log(providerData)
 	// create new entry on dashboard
 	const surplusFoodCreationRequest = async () => {
 		const userData = JSON.parse(localStorage.getItem('user_data'))
@@ -56,7 +56,7 @@ const Provider = () => {
 					},
 				}
 			)
-			console.log('surplus_res', res)
+			// console.log('surplus_res', res)
 		}
 		setShowModal(false)
 	}

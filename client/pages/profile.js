@@ -54,7 +54,7 @@ const Profile = () => {
 				},
 			}
 		)
-		console.log('update profile>>', res)
+		// console.log('update profile>>', res)
 	}
 
 	return (

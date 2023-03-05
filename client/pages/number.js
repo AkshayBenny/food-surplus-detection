@@ -43,7 +43,7 @@ const Number = () => {
 				}
 			)
 			setOtpSent(true)
-			console.log(res.data)
+			// console.log(res.data)
 			if (res.data.route === 'signup') {
 				//if number is not in db then re-route to signup page
 				// router.push('/signup')
@@ -102,7 +102,7 @@ const Number = () => {
 				(res.data && res.data.user_data === 'Business') ||
 				res.data.user_data === 'Individual'
 			) {
-				console.log(res.data)
+				// console.log(res.data)
 				router.push('/provider')
 			}
 		}

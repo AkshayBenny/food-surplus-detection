@@ -42,7 +42,7 @@ export default function Signup() {
 			if (res.data.status === 'Success') {
 				setOtpSent(true)
 			}
-			console.log(res)
+			// console.log(res)
 			if (res.data.route === 'signup') {
 				localStorage.setItem('user_number', phone)
 				// router.push('/number')
@@ -53,7 +53,7 @@ export default function Signup() {
 				// 	router.push('/ngo')
 				// }
 			} else {
-				console.log('Not redirected', res.data)
+				// console.log('Not redirected', res.data)
 			}
 		} else {
 			if (!otp)
@@ -123,7 +123,7 @@ export default function Signup() {
 				(res.data && res.data.user_data === 'Business') ||
 				res.data.user_data === 'Individual'
 			) {
-				console.log(res.data)
+				// console.log(res.data)
 
 				router.push('/provider')
 			}
@@ -149,7 +149,7 @@ export default function Signup() {
 	}
 
 	const handleOptionChange = (event) => {
-		console.log(event.target.value)
+		// console.log(event.target.value)
 		setSelectedOption(event.target.value)
 	}
 

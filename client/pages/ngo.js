@@ -13,14 +13,14 @@ const Ngo = () => {
 	const router = useRouter()
 	const [providerData, setProviderData] = useState(null)
 	const [status, setStatus] = useState(null)
-	console.log(providerData)
+	// console.log(providerData)
 	const [showModal, setShowModal] = useState(false)
 	const [servings, setServings] = useState(0)
 	// fetch dashboard data
 	useEffect(() => {
 		const access_token = localStorage.getItem('access_token')
 		const refresh_token = localStorage.getItem('refresh_token')
-		console.log(access_token, refresh_token)
+		// console.log(access_token, refresh_token)
 		if (!access_token || !refresh_token) {
 			router.push('/number')
 		}
@@ -47,7 +47,7 @@ const Ngo = () => {
 		const access_token = localStorage.getItem('access_token')
 		const refresh_token = localStorage.getItem('refresh_token')
 		const user_data = JSON.parse(localStorage.getItem('user_data'))
-		console.log(access_token, refresh_token, user_data)
+		// console.log(access_token, refresh_token, user_data)
 		if (!access_token || !refresh_token) {
 			router.push('/number')
 		}
@@ -65,7 +65,7 @@ const Ngo = () => {
 				},
 			}
 		)
-		console.log(res)
+		// console.log(res)
 		window.open(
 			`http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${long}`,
 			'_blank'
